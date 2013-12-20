@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[defromeo]]></title>
+  <link href="http://defromeo.github.io/atom.xml" rel="self"/>
+  <link href="http://defromeo.github.io/"/>
+  <updated>2013-12-20T18:05:24+02:00</updated>
+  <id>http://defromeo.github.io/</id>
+  <author>
+    <name><![CDATA[Romeo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    
+    <title type="html"><![CDATA[Hello En World]]></title>
+    <link href="http://defromeo.github.io/blog/2013/12/20/hello-en-world/"/>
+    
+    <updated>2013-12-20T13:02:07+02:00</updated>
+    <id>http://defromeo.github.io/blog/2013/12/20/hello-en-world</id>
+    
+    <content type="html"><![CDATA[<p>(say &ldquo;hi&rdquo;)</p>
+
+<p>(def name &ldquo;Romeo&rdquo;)</p>
+
+<p>So, I see you already found what language I like.</p>
+
+<p>I&rsquo;m engineer (not really like word developer). And I&rsquo;m sure you see that I born in non-english country.</p>
+
+<p>I had a blog maybe for five years, but than I understand that google know too much about me. It was personal and proffesion blog. So know I don&rsquo;t wanna do that mistake, and this will be only profession blog, without second name and save you from my life story.</p>
+]]></content>
+    
+  </entry>
+  
+</feed>
