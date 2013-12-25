@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | defromeo]]></title>
   <link href="http://defromeo.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://defromeo.github.io/"/>
-  <updated>2013-12-25T19:05:11+02:00</updated>
+  <updated>2013-12-25T20:59:54+02:00</updated>
   <id>http://defromeo.github.io/</id>
   <author>
     <name><![CDATA[Romeo]]></name>
@@ -18,7 +18,7 @@
     <link href="http://defromeo.github.io/blog/2013/12/25/first-steps-with-hoplon/"/>
     <updated>2013-12-25T14:02:18+02:00</updated>
     <id>http://defromeo.github.io/blog/2013/12/25/first-steps-with-hoplon</id>
-    <content type="html"><![CDATA[<p><a href="http://hoplon.io/">Hoplon</a> is great framework. I hope it will change our standart path in building web.</p>
+    <content type="html"><![CDATA[<p><a href="http://hoplon.io/">Hoplon</a> is great framework. I hope it will change our standart way in building web.</p>
 
 <p>In next a few blog posts I will create Kalah game, and I&rsquo;ll post my adventure here. To be prepared you should read excellent <a href="http://hoplon.io/#/getting-started/">Getting Started Hoplon.io</a>.</p>
 
