@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Hoplon | defromeo]]></title>
+  <link href="http://defromeo.github.io/blog/categories/hoplon/atom.xml" rel="self"/>
+  <link href="http://defromeo.github.io/"/>
+  <updated>2013-12-25T19:05:11+02:00</updated>
+  <id>http://defromeo.github.io/</id>
+  <author>
+    <name><![CDATA[Romeo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First steps with Hoplon]]></title>
+    <link href="http://defromeo.github.io/blog/2013/12/25/first-steps-with-hoplon/"/>
+    <updated>2013-12-25T14:02:18+02:00</updated>
+    <id>http://defromeo.github.io/blog/2013/12/25/first-steps-with-hoplon</id>
+    <content type="html"><![CDATA[<p><a href="http://hoplon.io/">Hoplon</a> is great framework. I hope it will change our standart path in building web.</p>
+
+<p>In next a few blog posts I will create Kalah game, and I&rsquo;ll post my adventure here. To be prepared you should read excellent <a href="http://hoplon.io/#/getting-started/">Getting Started Hoplon.io</a>.</p>
+
+<p>So today our task is create main menu and some blocks which we will see when certain menu chosen. These menu items will be connected with hash. <a href="http://defromeo.github.io/kalah/">Result is here</a>.</p>
+
+<h2>HTML</h2>
+
+<p>We start with simple template:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/hoplon&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="p">(</span><span class="nx">page</span> <span class="s2">&quot;index.html&quot;</span>
+</span><span class='line'>    <span class="p">(</span><span class="o">:</span><span class="nx">require</span>
+</span><span class='line'>      <span class="p">[</span><span class="nx">tailrecursion</span><span class="p">.</span><span class="nx">hoplon</span><span class="p">.</span><span class="nx">util</span> <span class="o">:</span><span class="nx">as</span> <span class="nx">hutil</span><span class="p">]))</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>ul<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>li<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>a href=&quot;#/&quot;<span class="ni">&amp;gt;</span>Home<span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/li<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>li<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>a href=&quot;#/about&quot;<span class="ni">&amp;gt;</span>About<span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/li<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/ul<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>div<span class="ni">&amp;gt;</span>Home<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>div<span class="ni">&amp;gt;</span>About<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Notice, we require <code>tailrecursion.hoplon.util</code> and will use <code>route-cell</code> from it for creating cell updated with current hash:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>route-cell <a href="http://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/util.cljs#L22-L25">http://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/util.cljs#L22-L25</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">route-cell</span> <span class="p">[</span><span class="nv">msec</span> <span class="nv">default</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">hash</span>  <span class="o">#</span><span class="p">(</span><span class="nf">.-hash</span> <span class="p">(</span><span class="nf">.-location</span> <span class="nv">js/window</span><span class="p">))]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">with-let</span> <span class="p">[</span><span class="nv">ret</span> <span class="p">(</span><span class="nf">cell</span> <span class="p">(</span><span class="nf">hash</span><span class="p">))]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">interval</span> <span class="o">#</span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">h</span> <span class="p">(</span><span class="nf">hash</span><span class="p">)]</span> <span class="p">(</span><span class="nf">reset!</span> <span class="nv">ret</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv">h</span><span class="p">)</span> <span class="nv">default</span> <span class="nv">h</span><span class="p">)))</span> <span class="nv">msec</span><span class="p">))))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In our case <code>with-let</code> macro first create cell with current hash <code>(cell (hash))</code>, then run <code>setInterval</code> with function which will update our cell, after hash cell will be returned.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>with-let <a href="https://github.com/tailrecursion/javelin/blob/master/src/tailrecursion/javelin.clj#L20-L24">https://github.com/tailrecursion/javelin/blob/master/src/tailrecursion/javelin.clj#L20-L24</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defmacro </span><span class="nv">with-let</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="nv">ldquo</span><span class="c1">;Binds resource to binding and evaluates body.  Then, returns</span>
+</span><span class='line'>  <span class="nv">resource.</span>  <span class="nv">It</span><span class="o">&amp;</span><span class="nv">rsquo</span><span class="c1">;s a cross between doto and with-open.&amp;rdquo;</span>
+</span><span class='line'>  <span class="p">[[</span><span class="nb">binding </span><span class="nv">resource</span><span class="p">]</span> <span class="o">&amp;</span><span class="nv">amp</span><span class="c1">; body]</span>
+</span><span class='line'>  <span class="o">`</span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="o">~</span><span class="nb">binding </span><span class="o">~</span><span class="nv">resource</span><span class="p">]</span> <span class="o">~@</span><span class="nv">body</span> <span class="o">~</span><span class="nv">binding</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>interval <a href="https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/util.cljs#L20">https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/util.cljs#L20</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">interval</span>  <span class="p">[</span><span class="nv">f</span> <span class="nv">msec</span><span class="p">]</span>  <span class="p">(</span><span class="nf">.setInterval</span> <span class="nv">js/window</span> <span class="nv">f</span> <span class="nv">msec</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So with this library we only need in our <code>index.html.hl</code>:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">route</span> <span class="p">(</span><span class="nf">hutil/route-cell</span> <span class="mi">100</span> <span class="o">&amp;</span><span class="nv">ldquo</span><span class="c1">;#/&amp;rdquo;))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Links highlighting</h2>
+
+<p>I&rsquo;m using bootstrap, and we need set <code>active</code> class for current menu item.
+So we should use do-class atribute which takes cell with hash-map like <code>{:active true}</code> &ndash; <code>do-class='{ {   (cell {:active true})   }}'</code>.</p>
+
+<p>To depend on current hash we change it to formula cell:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;li</span> <span class="na">do-class=</span><span class="s">&#39;{ {  (cell= {:active (= &quot;#/&quot; route)})  }}&#39;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>a href=&quot;#/&quot;<span class="ni">&amp;gt;</span>Home<span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/li&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We can make a little easy by creating boolean help-cell (there also example of macro <code>defc=</code>):
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">is-home?</span> <span class="p">(</span><span class="nf">cell=</span> <span class="p">(</span><span class="nb">= </span><span class="o">&amp;</span><span class="nv">ldquo</span><span class="c1">;#/&amp;rdquo; route)))</span>
+</span><span class='line'><span class="p">(</span><span class="nf">defc=</span> <span class="nv">is-about?</span> <span class="p">(</span><span class="nb">= </span><span class="o">&amp;</span><span class="nv">ldquo</span><span class="c1">;#/about&amp;rdquo; route))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So now we can write links like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;li</span> <span class="na">do-class=</span><span class="s">&#39;{ {  (cell= {:active is-about?}) }}&#39;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>a href=&quot;#/about&quot;<span class="ni">&amp;gt;</span>About<span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/li&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Hidden Content</h2>
+
+<p>Now we need only hide with <code>hidden</code> class our <code>div</code> which is not connected to current hash path.</p>
+
+<p>And this is exactly like in above example (with and without our helper):
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">do-class=</span><span class="s">&#39;{ {  (cell= {:hidden (not= &quot;#/&quot; route)}) }}&#39;</span><span class="nt">&gt;</span>
+</span><span class='line'>Home
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">do-class=</span><span class="s">&#39;{ {  (cell= {:hidden (not is-about?)}) }}&#39;</span><span class="nt">&gt;</span>
+</span><span class='line'>About
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>That is all for now.</p>
+
+<p><a href="https://github.com/defromeo/kalah/tree/v0.1">All sources</a></p>
+]]></content>
+  </entry>
+  
+</feed>
