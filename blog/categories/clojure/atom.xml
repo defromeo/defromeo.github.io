@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | defromeo]]></title>
   <link href="http://defromeo.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://defromeo.github.io/"/>
-  <updated>2013-12-25T21:03:03+02:00</updated>
+  <updated>2014-01-08T19:09:49+02:00</updated>
   <id>http://defromeo.github.io/</id>
   <author>
     <name><![CDATA[Romeo]]></name>
@@ -12,6 +12,251 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hoplon, Storage and Stem Cell]]></title>
+    <link href="http://defromeo.github.io/blog/2013/12/26/hoplon-storage-stem-cell/"/>
+    <updated>2013-12-26T17:38:03+02:00</updated>
+    <id>http://defromeo.github.io/blog/2013/12/26/hoplon-storage-stem-cell</id>
+    <content type="html"><![CDATA[<p>Today we explore a little storage utility from <a href="http://hoplon.io/">Hoplon</a>, and build some logic of our game.</p>
+
+<p>Our data is simple vector of 14 numbers, and initial value is:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">init-board-value&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">[</span><span class="mi">0</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">0</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span>, <span class="mi">6</span><span class="p">])</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Data will be saved in cell &ldquo;stem cell&rdquo;
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">state</span> <span class="p">(</span><span class="nf">cell</span> <span class="nv">init-board-value</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In HTML our board is simple old fashion table, and text macro will help insert data into it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;player1&quot;</span><span class="nt">&gt;&lt;text&gt;</span>~(get state 1)<span class="nt">&lt;/text&gt;&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;player1&quot;</span><span class="nt">&gt;&lt;text&gt;</span>~(get state 2)<span class="nt">&lt;/text&gt;&lt;/td&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+this text will update when we change our state cell.</p>
+
+<p>Lets write some transitions function which change state. First function reset state to initial and second store random values:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">random-board</span> <span class="p">[]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">reset!</span> <span class="nv">state</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">repeatedly</span> <span class="mi">14</span> <span class="o">#</span><span class="p">(</span><span class="nb">rand-int </span><span class="mi">10</span><span class="p">)))))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span><span class="p">(</span><span class="kd">defn </span><span class="nv">init-board</span> <span class="p">[]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">reset!</span> <span class="nv">state</span> <span class="nv">init-board-value</span><span class="p">))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Simple. And we can add two button for using them with special attribere &ldquo;on-click&rdquo; which will take function for call when event received:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{ {  init-board }}&quot;</span><span class="nt">&gt;</span>init<span class="nt">&lt;/button&gt;</span>
+</span><span class='line'><span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{ {  random-board }}&quot;</span><span class="nt">&gt;</span>random<span class="nt">&lt;/button&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So this things documented in <a href="http://hoplon.io/#/getting-started/">Getting Started Hoplon.io</a>, and lets detailed see how we can change our state for persistent state which synced with HTML5 Local Storage.</p>
+
+<p>Guys created simple function <code>local-storage</code> from <code>tailrecursion.hoplon.storage-atom</code> namespace. Lets see how we can use it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">state</span> <span class="p">(</span><span class="o">&amp;</span><span class="nv">ndash</span><span class="c1">;&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span>         <span class="p">(</span><span class="nf">cell</span> <span class="nv">init-board-value</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">(</span><span class="nf">local-storage</span> <span class="ss">::store</span><span class="p">)))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Lets dive into standart library, <code>local-storage</code> take cell and key for which associate data.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>local-storage <a href="https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L39-L41">https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L39-L41</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">local-storage</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">atom</span> <span class="nv">k</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">html-storage</span> <span class="nv">atom</span> <span class="nv">js/localStorage</span> <span class="nv">k</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>local-storage</code> is simple proxy who redirect input to <code>html-storage</code> and add variable <code>js/localStorage</code>.</p>
+
+<p><code>html-storage</code> will create <code>StorageBackend</code> in <code>js/localStorage</code> in some key:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html-storage <a href="https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L35-L37">https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L35-L37</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">html-storage</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">atom</span> <span class="nv">storage</span> <span class="nv">k</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">store</span> <span class="nv">atom</span> <span class="p">(</span><span class="nf">StorageBackend.</span> <span class="nv">storage</span> <span class="nv">k</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Object <code>StorageBackend</code> contains 2 function for getting value and for setting and using function <code>pr-str</code> and <code>read-string</code> for serializing data:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>StorageBackend <a href="https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L17-L24">https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L17-L24</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">deftype </span><span class="nv">StorageBackend</span> <span class="p">[</span><span class="nv">store</span> <span class="nv">key</span><span class="p">]</span>
+</span><span class='line'>  <span class="nv">IStorageBackend</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">-get</span> <span class="p">[</span><span class="nv">this</span> <span class="nv">not-found</span><span class="p">]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nb">if-let </span><span class="p">[</span><span class="nv">existing</span> <span class="p">(</span><span class="nf">.getItem</span> <span class="nv">store</span> <span class="p">(</span><span class="nb">pr-str </span><span class="nv">key</span><span class="p">))]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">read-string</span> <span class="nv">existing</span><span class="p">)</span>
+</span><span class='line'>  <span class="nv">not-found</span><span class="p">))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>  <span class="p">(</span><span class="nf">-commit!</span> <span class="p">[</span><span class="nv">this</span> <span class="nv">value</span><span class="p">]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">.setItem</span> <span class="nv">store</span> <span class="p">(</span><span class="nb">pr-str </span><span class="nv">key</span><span class="p">)</span> <span class="p">(</span><span class="nb">pr-str </span><span class="nv">value</span><span class="p">))))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And now we ready to see function <code>store</code>:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>store <a href="https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L26-L33">https://github.com/tailrecursion/hoplon/blob/master/src/tailrecursion/hoplon/storage_atom.cljs#L26-L33</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">store</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">atom</span> <span class="nv">backend</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">existing</span> <span class="p">(</span><span class="nf">-get</span> <span class="nv">backend</span> <span class="ss">::none</span><span class="p">)]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="ss">::none</span> <span class="nv">existing</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">-commit!</span> <span class="nv">backend</span> <span class="err">@</span><span class="nv">atom</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">reset!</span> <span class="nv">atom</span> <span class="nv">existing</span><span class="p">))</span>
+</span><span class='line'><span class="p">(</span><span class="nb">doto </span><span class="nv">atom</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">add-watch</span> <span class="ss">::storage-watch</span> <span class="o">#</span><span class="p">(</span><span class="nf">-commit!</span> <span class="nv">backend</span> <span class="nv">%4</span><span class="p">)))))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In lines 3-4 code check if value is in our local storage, and if not than we save it with <code>-commit!</code> function of storage, if data is present then we get it, and update our state with it.</p>
+
+<p>After in limes 7-8 we add watcher to cell, so when data in cell changed than data will be saved to localStorage.</p>
+
+<p><a href="http://clojuredocs.org/clojure_core/clojure.core/add-watch">add-watch</a> standart Clojure and ClojureScript function and it work for all standart ClojureScript referenced data. But how it could work with cell? Cell type implement <code>cljs.core/IWatchable</code> protocol by adding some functions:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Cell <a href="https://github.com/tailrecursion/javelin/blob/master/src/tailrecursion/javelin.cljs#L79-L85">https://github.com/tailrecursion/javelin/blob/master/src/tailrecursion/javelin.cljs#L79-L85</a> </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'>  <span class="nv">cljs.core/IWatchable</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">-notify-watches</span> <span class="p">[</span><span class="nv">this</span> <span class="nv">oldval</span> <span class="nv">newval</span><span class="p">]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nb">doseq </span><span class="p">[[</span><span class="nb">key </span><span class="nv">f</span><span class="p">]</span> <span class="nv">watches</span><span class="p">]</span> <span class="p">(</span><span class="nf">f</span> <span class="nb">key </span><span class="nv">this</span> <span class="nv">oldval</span> <span class="nv">newval</span><span class="p">)))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>  <span class="p">(</span><span class="nf">-add-watch</span> <span class="p">[</span><span class="nv">this</span> <span class="nb">key </span><span class="nv">f</span><span class="p">]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">set!</span> <span class="p">(</span><span class="nf">.-watches</span> <span class="nv">this</span><span class="p">)</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">watches</span> <span class="nb">key </span><span class="nv">f</span><span class="p">)))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>  <span class="p">(</span><span class="nf">-remove-watch</span> <span class="p">[</span><span class="nv">this</span> <span class="nv">key</span><span class="p">]</span><span class="nv">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="p">(</span><span class="nf">set!</span> <span class="p">(</span><span class="nf">.-watches</span> <span class="nv">this</span><span class="p">)</span> <span class="p">(</span><span class="nb">dissoc </span><span class="nv">watches</span> <span class="nv">key</span><span class="p">)))</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And <code>-add-watch</code> simple add key and watch function to hash object property <code>watches</code>. And <code>-notify-watches</code> will execute by <code>reset!</code> or <code>swap!</code>.</p>
+
+<p>Last step for today is make easy our table by using <code>loop-tpl</code> which is take some indexes and create <code>&lt;td&gt;</code>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="o">&amp;</span><span class="nv">lt</span><span class="c1">;loop-tpl bindings=&amp;ldquo;&amp;rdquo;&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;pre&gt;&lt;code&gt;</span><span class="o">&amp;</span><span class="nv">lt</span><span class="c1">;td class=&quot;player2&quot;&amp;gt;&amp;lt;text&amp;gt;~(get state i)&amp;lt;/text&amp;gt;&amp;lt;/td&amp;gt;</span>
+</span><span class='line'><span class="nv">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">&lt;p&gt;</span><span class="o">&amp;</span><span class="nv">lt</span><span class="c1">;/loop-tpl&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<code>loop-tpl</code> is not really easy stuff, &lsquo;cause to understand it work, we shoud understand many concepts of Hoplon. And we will do that in future.</p>
+
+<p>I will hold next article awhile, I need some thing to work for Hoplon.</p>
+
+<p>Final web-application you can try at <a href="http://defromeo.github.io/kalah/">here</a>. <a href="https://github.com/defromeo/kalah/tree/v0.2">Sourch code.</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[First steps with Hoplon]]></title>
